@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category }} Poems | Whispering Verses{% endblock %}
+
+{% block content %}
+<div class="poems-container">
+    <div class="container">
+        <div class="poems-grid">
+            {% for poem in poems %}
+            <div class="poem-card animated fadeInUp"
+                 data-full-content="{{ poem.content }}"
+                 data-category="{{ categories[poem.category].name if poem.category in categories else 'Unknown' }}"
+                 data-date="{{ poem.created_at.strftime('%B %d, %Y') }}">
+                <h3>{{ poem.title }}</h3>
+            </div>
+            {% else %}
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <i class="fas fa-book-open"></i>
+                <p>No poems found in this category yet</p>
+                {% if session.logged_in %}
+                <a href="{{ url_for('admin') }}" class="btn">Add Your First Poem</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Poem Modal -->
+<div class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 class="modal-title"></h2>
+        <div class="full-poem-content"></div>
+        <div class="poem-meta">
+            <span class="poem-category"></span>
+            <span class="poem-date"></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get modal elements
+    const modal = document.querySelector('.modal');
+    const modalTitle = modal.querySelector('.modal-title');
+    const poemContent = modal.querySelector('.full-poem-content');
+    const poemCategory = modal.querySelector('.poem-category');
+    const poemDate = modal.querySelector('.poem-date');
+    const closeBtn = modal.querySelector('.close-modal');
+
+    // Add click handlers to all poem cards
+    document.querySelectorAll('.poem-card').forEach(card => {
+        card.addEventListener('click', function() {
+            modalTitle.textContent = this.querySelector('h3').textContent;
+            poemContent.textContent = this.dataset.fullContent;
+            poemCategory.textContent = this.dataset.category;
+            poemDate.textContent = this.dataset.date;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal when clicking X
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+});
+</script>
+{% endblock %}

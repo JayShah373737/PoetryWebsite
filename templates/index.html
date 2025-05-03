@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="particles-js"></div>
+    
+<header class="animated fadeInDown">
+    <div class="container">
+        <h1 class="logo">Jay<span><em>Writes</em></span></h1>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+<section id="home" class="hero animated fadeIn">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="animated fadeInUp">Poetry Coded.</h2>
+            <p class="animated fadeInUp delay-1"><em>A journey that everybody travelled but never wrote.</em></p>
+            <a href="#categories" class="btn animated fadeInUp delay-2">Explore Poetry</a>
+        </div>
+    </div>
+    <div class="scroll-down animated bounce infinite">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+<!-- Add this section below your hero section in index.html -->
+<section id="featured-poetry" class="featured-poetry">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle fade-in">Curated Selection</span>
+            <h2 class="section-title slide-in">Featured Poetry<br><span>of the Month</span></h2>
+            <div class="divider pulse"></div>
+        </div>
+
+        <div class="poetry-showcase">
+            <div class="poemss-card">
+                <div class="poemss-badge rotate">Featured</div>
+                <div class="poemss-image-wrapper">
+                    <img src="{{ url_for('static', filename='images/poem-bg-1.jpg') }}" alt="Poetry Background" class="zoom-on-hover">
+                    <div class="poemss-overlay"></div>
+                </div>
+                <div class="poemss-content">
+                    <h3 class="poemss-title glitch">"Whispering Moon"</h3>
+                    <div class="poemss-excerpt">
+                        <p>Why moon you are being so special,<br>
+                        Being with you feel so happy and delusional.<br>
+                        The harmony and calmness seeing you,<br>
+                        I could give everything for you...</p>
+                        
+                    </div>
+                    <div class="poemss-meta">
+                        <span class="poemss-author"><i class="fas fa-pen-nib"></i> By Jay Shah</span>
+                        <span class="poemss-date"><i class="far fa-calendar-alt"></i> May 2025</span>
+                    </div>
+                    <a href="#read-poem" class="poemss-read-btn shimmer">
+                        <i class="fas fa-book-open"></i> Read Full Poem
+                    </a>
+                </div>
+            </div>
+
+            <div class="poemss-highlights">
+                <div class="highlight-item fade-in-delay">
+                    <div class="highlight-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="highlight-line">"I didn't stop doing many things, I actually started doing many things."</p>
+                </div>
+                
+                <div class="highlight-item fade-in-delay" style="animation-delay: 0.3s;">
+                    <div class="highlight-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p class="highlight-line">I can go through hell, But let the bond be even in heaven.</p>
+                </div>
+                
+                <div class="highlight-item fade-in-delay" style="animation-delay: 0.6s;">
+                    <div class="highlight-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="highlight-line">People say strange things sometimes, it's better to be alone with one's book.- ALCHEMIST</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="categories" class="categories">
+    <div class="container">
+        <h2 class="section-title">Poetry Categories</h2>
+        <div class="category-grid">
+            {% for key, category in categories.items() %}
+            <div class="category-card" data-category="{{ key }}">
+                <div class="category-icon">
+                    <i class="fas fa-{{ category.icon }}"></i>
+                </div>
+                <h3>{{ category.name }}</h3>
+                <p>
+                    {% if key == 'love' %}Romantic and emotional verses
+                    {% elif key == 'life' %}Reflections on existence
+                    {% elif key == 'reality' %}Real world perspectives
+                    {% elif key == 'thoughts' %}Deep thinking and musings
+                    {% elif key == 'dedicated' %}Special dedications
+                    {% elif key == 'Articles' %}Know author perspective
+                    {% elif key == 'Stories' %} Where word dance in sequential manner
+                    {% elif key == 'Ghazalein' %}Shayari with feels
+
+                    {% else %}Various poetic expressions{% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="poems-container" class="poems-container">
+    <div class="container">
+        <h2 class="section-title">Poetry Portfolio</h2>
+        <div id="poems-list" class="poems-grid">
+            <div class="empty-state animated fadeIn">
+                <i class="fas fa-book-open"></i>
+                <p>Select a category to view poems</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="about">
+    <div class="container">
+        <h2 class="section-title">About the Poet</h2>
+        <div class="about-content">
+            <div class="author-photo">
+                <img src="{{ url_for('static', filename='images/author.jpg') }}" alt="Author Photo">
+            </div>
+            <div class="author-bio">
+                <p>Welcome to the world of heartfelt words and soulful expression.</p>
+
+                <p>I am a passionate author and poet who began the journey of writing in 2019. Since then, I have crafted 500+ original poetries and shayaris across English, Hindi, and Gujarati, drawing from life's most tender moments, unspoken emotions, and everyday experiences. My writing captures the essence of life, love, memories, personal reflections, and soulful dedications.</p>
+
+                <p>In 2021, I proudly published my debut poetry collection titled <a href="https://www.flipkart.com/love-life-letter/p/itm2214429e4162e?pid=9781956528572&cmpid=product.share.pp&_refId=PP.2c6c82b6-bbf8-4632-9aff-46b499ff5585.9781956528572&lid=LSTBOK9781956528572K7OSCA"><em>"Love.Life.Letter"</em></a> , a heartfelt book that explores the raw beauty of love and life through verse. I have also contributed to numerous renowned anthologies including <em>"Ocean Eyes"</em>, <em>"Year 2022"</em>, and many others, making my mark alongside other talented poets and writers.</p>
+
+                <p>Beyond the page, I've actively participated in open mic events, bringing my words to life through performance and connecting with audiences who feel every line. These experiences have deepened my bond with poetry as a living, breathing form of expression.</p>
+
+                <p>Whether it's a poem written to heal, to remember, or to express the unspoken, my work is dedicated to touching hearts and inspiring souls. This portfolio is a window into that poetic journey—a place where words meet emotions and stories find their voice.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Add this section below your hero section in index.html -->
+<section id="announcement" class="announcement-section">
+    <div class="container">
+        <div class="announcement-card">
+            <div class="announcement-content">
+                <div class="tag pulse">Achievement!</div>
+                <h2 class="slide-in">Special Achievement</h2>
+                <p class="fade-in">It honoured to publish my poetry collection <span class="highlight">"love.life.letter"</span> that release in year 2021!</p>
+                <div class="features">
+                    <div class="feature-item bounce">
+                        <i class="fas fa-book-open"></i>
+                        <span>Phase of Love Poems</span>
+                    </div>
+                    <div class="feature-item bounce" style="animation-delay: 0.2s;">
+                        <i class="fas fa-pen-fancy"></i>
+                        <span>Hardcover Copy</span>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="announcement-image">
+                <img src="{{ url_for('static', filename='images/book-cover.jpg') }}" alt="New Book Cover" class="float">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <form id="contact-form" action="{{ url_for('submit_contact') }}" method="POST">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" name="name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Your Email" name="email" required>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Your Message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn" name="submit">Send Message</button>
+        </form>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h3>For any queries</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:sjay81900@gmail.com">Send your suggestion/Feedback</a> </p>
+            </div>
+            <div class="footer-meta">
+                <p class="made-with-love">
+                     Made with ❤️ in India
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/WhatIThink37?t=z0hOVb4JZ3CXl6bqEkrUVw&s=03"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/whatjaythinks/"><i class="fab fa-instagram"></i></a>
+                </div><br>
+                <p class="copyright">&copy; 2025 JayThinks. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

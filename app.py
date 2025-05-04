@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from functools import wraps
 import os
 from datetime import timedelta
+from waitress import serve
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -219,4 +220,4 @@ if __name__ == '__main__':
         create_admin_user()
     
     # For production, use a WSGI server like gunicorn instead
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=False)
+    serve(app,host='0.0.0.0', port=3700,threads=2)
